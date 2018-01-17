@@ -281,6 +281,7 @@ def search(page=None):
     ).order_by(
         Movie.addtime.desc()
     ).paginate(page=page, per_page=10)
+    page_data.key = key
     return render_template("home/search.html", key=key, page_data=page_data, movie_count=movie_count)
 
 
@@ -293,7 +294,6 @@ def play(id = None, page=None):
     if page is None:
         page = 1
     page_data = Comment.query.join(User).join(Movie).filter(
-        User.id == session["user_id"],
         Movie.id == movie.id
     ).order_by(
         Comment.addtime.desc()
@@ -305,7 +305,7 @@ def play(id = None, page=None):
         data = form.data
         comment = Comment(
             content=data["content"],
-            user_id=Comment.user_id,
+            user_id=session["user_id"],
             movie_id=movie.id
         )
         db.session.add(comment)

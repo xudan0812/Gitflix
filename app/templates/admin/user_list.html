@@ -54,10 +54,15 @@
                             <td>{{ v.email }}</td>
                             <td>{{ v.phone }}</td>
                             <td>
-                                <img src=" {{url_for('static', filename='uploads/user/' + (v.avatar if v.avatar else 'user1.jpg'))}}"
+                                {% if v.avatar %}
+                                    <img src=" {{url_for('static', filename='uploads/user/' + v.avatar)}}"
                                      style="width: 50px;"
                                      class="img-responsive center-block"
                                      alt="">
+                                {% else %}
+                                    <img alt="50x50" src="holder.js/50x50"
+                                     style="width: 50px" class="img-responsive center-block">
+                                {% endif %}
                             </td>
                             <td>Normal/Blocked</td>
                             <td>{{ v.addtime }}</td>

@@ -50,10 +50,17 @@
                         <tr>
                             <td class="td_bd">Avatar：</td>
                             <td>
-                                <img src="{{url_for('static', filename='uploads/user/' + (user.avatar if user.avatar else 'user1.jpg') )}}"
+                                {% if user.avatar %}
+                                <img src="{{url_for('static', filename='uploads/user/' + user.avatar )}}"
                                      style="width: 100px"
                                      class="img-responsive"
                                      alt="">
+                                {% else %}
+                                <img src="holder.js/100x100"
+                                     style="width: 100px"
+                                     class="img-responsive"
+                                     alt="">
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
